@@ -1,6 +1,5 @@
 ﻿namespace Domain.Entities.Products;
 
-//stock keeping unit
 public record Sku
 {
     private const int DefaultLength = 15;
@@ -9,7 +8,7 @@ public record Sku
 
     public string Value { get; init; }
 
-    public static Sku Create(string value)
+    public static Sku? Create(string value)
     {
         if (string.IsNullOrEmpty(value))
         {

@@ -1,12 +1,11 @@
 ﻿using Application.Abstractions.Data;
-using Application.Abstractions.Messaging;
 using Domain.Entities.Products;
-using Domain.Shared;
+using MediatR;
 
-namespace Application.Products;
+namespace Application.Products.Commands;
 
 internal sealed class CreateProductCommandHandler
-    : ICommandHandler<CreateProductCommand>
+    : IRequestHandler<CreateProductCommand>
 {
     private readonly IApplicationDbContext _context;
 
@@ -15,13 +14,16 @@ internal sealed class CreateProductCommandHandler
         _context = context;
     }
 
-    public async Task<Result> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = Product.Create(request.Name, request.Price, request.SkuDescription);
+        var product = new Product(
+            new ProductId(Guid.NewGuid()),
+            request.Name,
+            new Money(request.Currency, request.Amount),
+            Sku.Create(request.Sku)!);
 
         _context.Products.Add(product);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return Result.Success();
     }
 }
