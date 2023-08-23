@@ -14,7 +14,11 @@ internal class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             customerId => customerId.Value,
             value => new CustomerId(value));
 
-        builder.Property(c => c.Name).HasMaxLength(100);
+        builder.Property(c => c.FirstName).HasMaxLength(100);
+        builder.Property(c => c.LastName).HasMaxLength(100);
+
+        builder.Property(p => p.Password).HasMaxLength(100);
+        builder.HasIndex(p => p.Password).IsUnique();
 
         builder.Property(c=>c.Email).HasMaxLength(255);
 
