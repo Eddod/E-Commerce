@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 #Ignore Appsettings file
 appsettings.Development.json
+/Web-API/appsettings.Development.json
