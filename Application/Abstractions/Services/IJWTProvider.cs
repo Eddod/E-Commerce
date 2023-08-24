@@ -1,6 +1,6 @@
 ﻿using Domain.Entities.Customers;
 
-namespace Application.Abstractions;
+namespace Application.Abstractions.Services;
 
 public interface IJWTProvider
 {
