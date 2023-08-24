@@ -11,7 +11,7 @@ public class Customer : IAuditableEntity
         LastName = lastName;
         Email = email;
         Password = password;
-
+        CreatedOnUtC = DateTime.UtcNow;
     }
     private Customer()
     {   
@@ -30,23 +30,5 @@ public class Customer : IAuditableEntity
 
     public DateTime? LastUpdatedOnUtC { get; set; }
 
-    //public static Customer Create(
-    //    Guid id,
-    //    string email,
-    //    string firstName,
-    //    string lastName,
-    //    string passWord)
-    //{
-    //    var customer = new Customer(
-    //        id,
-    //        email,
-    //        firstName,
-    //        lastName,
-    //        passWord);
-    //    return customer;
-    //}
-
 }
-
-//Add strongly typed FirstName, LastName, Password and Email to Customer
 
