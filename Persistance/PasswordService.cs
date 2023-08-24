@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using Application.Abstractions.Services;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 
-namespace Domain.Entities.Customers;
+namespace Persistance;
 
-public class Password
+internal class PasswordService : IPasswordService
 {
+
     private const int SaltSize = 128 / 8; // 128 bits = 16 bytes
     private const int HashSize = 256 / 8; // 256 bits = 32 bytes
     private const int Iterations = 100000;
@@ -27,11 +29,10 @@ public class Password
         byte[] hash = Convert.FromBase64String(parts[1]);
 
         byte[] newHash = HashPassword(password, salt);
-
         return SlowEquals(hash, newHash);
     }
 
-    private byte[] GenerateSalt()
+    public byte[] GenerateSalt()
     {
         using (var rngCsp = new RNGCryptoServiceProvider())
         {
@@ -41,7 +42,7 @@ public class Password
         }
     }
 
-    private byte[] HashPassword(string password, byte[] salt)
+    public byte[] HashPassword(string password, byte[] salt)
     {
         return KeyDerivation.Pbkdf2(
             password: password,
@@ -51,7 +52,7 @@ public class Password
             numBytesRequested: HashSize);
     }
 
-    private bool SlowEquals(byte[] a, byte[] b)
+    public bool SlowEquals(byte[] a, byte[] b)
     {
         uint diff = (uint)a.Length ^ (uint)b.Length;
         for (int i = 0; i < a.Length && i < b.Length; i++)
