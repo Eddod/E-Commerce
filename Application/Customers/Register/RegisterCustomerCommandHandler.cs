@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Data;
 using Application.Abstractions.Services;
 using Domain.Entities.Customers;
+using Domain.ValueObjects;
 using MediatR;
 
 namespace Application.Customers.Register;
@@ -21,10 +22,10 @@ internal sealed class RegisterCustomerCommandHandler :
         var password = _passwordService.HashPassword(request.Password);
         var customer = new Customer(
             new CustomerId(Guid.NewGuid()),
-            request.FirstName,
-            request.LastName,
-            request.Email,
-            password);
+            FirstName.Create(request.FirstName).Value,
+            LastName.Create(request.LastName).Value,
+            Email.Create(request.Email).Value,
+            Password.Create(password).Value);
 
         _context.Customers.Add(customer);
         await _context.SaveChangesAsync(cancellationToken);

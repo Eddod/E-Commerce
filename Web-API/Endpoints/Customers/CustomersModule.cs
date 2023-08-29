@@ -15,10 +15,12 @@ public class CustomersModule : ICarterModule
     }
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("customers", async ([FromBody] RegisterCustomerRequest request, ISender sender) =>
+        app.MapPost("customers/register", async (
+            [FromBody] RegisterCustomerCommand request,
+            ISender sender,
+            CancellationToken cancellationToken) =>
         {
-            var command = request.Adapt<RegisterCustomerCommand>();
-            await sender.Send(command);
+           await sender.Send(request, cancellationToken);
 
             return Results.Ok();
         });

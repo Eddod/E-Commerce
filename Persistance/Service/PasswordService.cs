@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 
-namespace Persistance;
+namespace Persistance.Service;
 
 internal class PasswordService : IPasswordService
 {
@@ -34,10 +34,10 @@ internal class PasswordService : IPasswordService
 
     public byte[] GenerateSalt()
     {
-        using (var rngCsp = new RNGCryptoServiceProvider())
+        byte[] salt = new byte[SaltSize];
+        using (var rng = RandomNumberGenerator.Create())
         {
-            byte[] salt = new byte[SaltSize];
-            rngCsp.GetBytes(salt);
+            rng.GetBytes(salt);
             return salt;
         }
     }

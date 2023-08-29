@@ -1,8 +1,10 @@
 using Application;
 using Carter;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Serilog;
+using Web_API.OptionsSetup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,16 @@ builder.Services.AddPersistance();
 builder.Host.UseSerilog((context, configuration) =>
 configuration.ReadFrom.Configuration(context.Configuration));
 
+
+
+builder.Services.ConfigureOptions<JwtOptionsSetup>();
+builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 app.UseExceptionHandler("/errors");
@@ -33,6 +45,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseSerilogRequestLogging();
-app.MapCarter();
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapCarter();
+
 app.Run();
