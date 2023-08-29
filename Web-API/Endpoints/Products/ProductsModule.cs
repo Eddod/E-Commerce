@@ -19,11 +19,13 @@ public class ProductsModule : ICarterModule
     }
     public void AddRoutes(IEndpointRouteBuilder app)
     {
+        
         app.MapGet("products", async (ISender sender) =>
         {
             var query = await sender.Send(new GetProductsQuery());
             return query;
-        });
+        }).RequireAuthorization();
+
         app.MapGet("products/{id:guid}", async (Guid Id, ISender sender) =>
         {
             try
