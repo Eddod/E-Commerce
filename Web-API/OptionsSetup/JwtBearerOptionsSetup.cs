@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Web_API.OptionsSetup
 {
-    public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
+    public class JwtBearerOptionsSetup : IPostConfigureOptions<JwtBearerOptions>
     {
         private readonly JwtOptions _jwtOptions;
 
@@ -15,7 +15,8 @@ namespace Web_API.OptionsSetup
             _jwtOptions = jwtOptions.Value;
         }
 
-        public void Configure(JwtBearerOptions options)
+
+        public void PostConfigure(string? name, JwtBearerOptions options)
         {
             options.TokenValidationParameters = new()
             {
@@ -28,7 +29,6 @@ namespace Web_API.OptionsSetup
                 IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(_jwtOptions.SecretKey))
             };
-
         }
     }
 }

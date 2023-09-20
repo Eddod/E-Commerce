@@ -39,7 +39,6 @@ internal sealed class JwtProviderService : IJwtProviderService
 
         string tokenValue = new JwtSecurityTokenHandler()
             .WriteToken(token);
-        Console.WriteLine(token);
         return tokenValue;
 
     }

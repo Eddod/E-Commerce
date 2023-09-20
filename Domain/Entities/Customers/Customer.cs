@@ -15,7 +15,7 @@ public class Customer : IAuditableEntity
         CreatedOnUtC = DateTime.UtcNow;
     }
     private Customer()
-    {   
+    {
     }
     public CustomerId Id { get; private set; }
 
@@ -25,7 +25,7 @@ public class Customer : IAuditableEntity
 
     public LastName LastName { get; private set; } 
 
-    public Password Password { get; private set; } 
+    public Password Password { get; private set; }
 
     public DateTime CreatedOnUtC { get; set; }
 
