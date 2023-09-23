@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Serilog;
+using Web_API;
 using Web_API.OptionsSetup;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,15 +18,16 @@ builder.Services
         options.UseSqlServer(
             builder.Configuration.GetConnectionString("Default")));
 
+builder.Services.AddSignalR();
 
+builder.Services.AddHostedService<ServerTimeNotifier>();
+builder.Services.AddCors();
 builder.Services.AddCarter();
 builder.Services.AddApplication();
 builder.Services.AddPersistance();
 
 builder.Host.UseSerilog((context, configuration) =>
 configuration.ReadFrom.Configuration(context.Configuration));
-
-
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -38,6 +40,8 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
 app.UseExceptionHandler("/errors");
 
 if (app.Environment.IsDevelopment())
@@ -47,6 +51,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseSerilogRequestLogging();
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
@@ -54,5 +59,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapCarter();
+
+app.MapHub<ChatHub>("notifications");
+
 
 app.Run();

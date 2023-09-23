@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistance", "Persistance\Persistance.csproj", "{E1275945-3ACD-4D67-AD4D-BE86FFFB079E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web-API", "Web-API\Web-API.csproj", "{AAE325D5-E826-43A0-9947-DA4399340D62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web-API", "Web-API\Web-API.csproj", "{AAE325D5-E826-43A0-9947-DA4399340D62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServerE-Shop", "BlazorServerE-Shop\BlazorServerE-Shop.csproj", "{6DC2654A-5EDD-48E9-975C-77598BC6BA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{AAE325D5-E826-43A0-9947-DA4399340D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAE325D5-E826-43A0-9947-DA4399340D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAE325D5-E826-43A0-9947-DA4399340D62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC2654A-5EDD-48E9-975C-77598BC6BA26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC2654A-5EDD-48E9-975C-77598BC6BA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC2654A-5EDD-48E9-975C-77598BC6BA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC2654A-5EDD-48E9-975C-77598BC6BA26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
