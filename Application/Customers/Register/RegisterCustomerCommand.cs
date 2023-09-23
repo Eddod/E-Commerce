@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain.ValueObjects;
+using MediatR;
 
 namespace Application.Customers.Register;
 

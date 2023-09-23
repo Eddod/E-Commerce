@@ -1,0 +1,44 @@
+﻿@page "/products"
+@using Application.Products.Get;
+
+<h3>API Test Page</h3>
+
+<button @onclick="GetProducts">Get Products</button>
+
+@if (products != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Currency</td>
+                    <td>@product.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private HttpClient httpClient;
+    public List<ProductResponse> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        httpClient = new HttpClient();
+    }
+
+    private async Task GetProducts()
+    {
+        products = await httpClient.GetFromJsonAsync<List<ProductResponse>>("https://localhost:44334/products");
+    }
+
+}

@@ -1,10 +1,11 @@
 ﻿using Domain.Primitives;
+using Domain.ValueObjects;
 
 namespace Domain.Entities.Customers;
 
 public class Customer : IAuditableEntity
 {
-    public Customer(CustomerId id, string firstName, string lastName, string email, string password)
+    public Customer(CustomerId id, FirstName firstName, LastName lastName, Email email, Password password)
     {
         Id = id;
         FirstName  = firstName;
@@ -14,17 +15,17 @@ public class Customer : IAuditableEntity
         CreatedOnUtC = DateTime.UtcNow;
     }
     private Customer()
-    {   
+    {
     }
     public CustomerId Id { get; private set; }
 
-    public string Email { get; private set; } = string.Empty;
+    public Email Email { get; private set; } 
 
-    public string FirstName { get; private set; } = string.Empty;
+    public FirstName FirstName { get; private set; } 
 
-    public string LastName { get; private set; } = string.Empty;
+    public LastName LastName { get; private set; } 
 
-    public string Password { get; private set; } = string.Empty;
+    public Password Password { get; private set; }
 
     public DateTime CreatedOnUtC { get; set; }
 

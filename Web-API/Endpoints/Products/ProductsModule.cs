@@ -19,11 +19,13 @@ public class ProductsModule : ICarterModule
     }
     public void AddRoutes(IEndpointRouteBuilder app)
     {
+
         app.MapGet("products", async (ISender sender) =>
         {
             var query = await sender.Send(new GetProductsQuery());
             return query;
         });
+
         app.MapGet("products/{id:guid}", async (Guid Id, ISender sender) =>
         {
             try
@@ -44,7 +46,7 @@ public class ProductsModule : ICarterModule
             await sender.Send(command);
 
             return Results.Ok();
-        });
+        }).RequireAuthorization();
 
 
         app.MapDelete("products/{id:guid}", async (Guid Id, ISender sender) =>
@@ -60,7 +62,7 @@ public class ProductsModule : ICarterModule
                 return Results.NotFound(e.Message);
             }
 
-        });
+        }).RequireAuthorization();
 
         app.MapPut("products/{id:guid}", async (Guid id, [FromBody] UpdateProductRequest request, ISender sender) =>
         {

@@ -52,8 +52,28 @@ public static class DomainErrors
             "Email.TooLong",
             "Email is too long");
 
-        public static readonly Error InvalidEmail = new(
+        public static readonly Error InvalidFormat = new(
             "Email.InvalidFormat",
             "Email format is invalid");
+    }
+
+    public static class Password
+    {
+        public static readonly Error Empty = new(
+            "Password.Empty",
+            "Password is empty");
+
+        public static readonly Error TooLong = new(
+            "Password.TooLong",
+            "Password is too long");
+
+        public static readonly Error TooShort = new(
+            "Password.TooShort",
+            "Password is too short");
+
+        public static readonly Error InvalidCredentials = new(
+            "Password.InvalidCredentials",
+            "Password credentials are invalid");
+
     }
 }
