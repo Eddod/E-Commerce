@@ -1,0 +1,68 @@
+﻿@page "/products/{id}"
+@using Application.Products.Get;
+@inject HttpClient Http
+
+<style>
+    .product-details {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .product-container {
+        max-width: 900px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    .product-name {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .product-property {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+</style>
+
+<h3>Product Details</h3>
+
+@if (_product != null)
+{
+    <div class="product-details">
+        <div class="product-container">
+            <div class="product-name">@_product.Name</div>
+            <div class="product-property">Currency: @_product.Currency</div>
+            <div class="product-property">Amount: @_product.Amount</div>
+            <div class="product-property">SKU: @_product.Sku</div>
+        </div>
+    </div>
+}
+else
+{
+    <div>Loading...</div>
+}
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private ProductResponse _product;
+
+    protected override async Task<ProductResponse> OnInitializedAsync()
+    {
+        var product = await Http.GetFromJsonAsync<ProductResponse>($"https://localhost:44334/products/{Id}");
+
+        if (product != null)
+        {
+            _product = product;
+
+        }
+        return _product;
+    }
+
+}
