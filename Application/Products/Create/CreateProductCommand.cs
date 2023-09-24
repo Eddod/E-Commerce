@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.Products.Get;
+using MediatR;
 
 namespace Application.Products.Commands;
 
@@ -6,5 +7,5 @@ public sealed record CreateProductCommand(
     string Name,
     string Sku,
     string Currency,
-    decimal Amount) : IRequest;
+    decimal Amount) : IRequest<ProductResponse>;
 

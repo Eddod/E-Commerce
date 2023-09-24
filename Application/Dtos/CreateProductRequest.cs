@@ -1,6 +1,6 @@
 ﻿namespace Web_API.Endpoints.Products;
 
-public sealed record CreateProductRequest(
+public record CreateProductRequest(
     string Name,
     string Sku,
     string Currency,
