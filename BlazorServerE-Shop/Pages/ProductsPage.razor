@@ -1,9 +1,66 @@
 ﻿@page "/products"
+@inject NavigationManager Navigation
 @using Application.Products.Get;
 
-<h3>API Test Page</h3>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
 
-<button @onclick="GetProducts">Get Products</button>
+    .page-header {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
+
+        .page-header h3 {
+            margin: 0;
+            padding: 0 20px;
+        }
+
+    .btn {
+        background-color: #007BFF;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<div class="page-header">
+    <h3>API Test Page</h3>
+</div>
+
+<button class="btn" @onclick="GetProducts">Get Products</button>
 
 @if (products != null)
 {
@@ -11,7 +68,9 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Price</th>
+                <th>Currency</th>
+                <th>Amount</th>
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +80,9 @@
                     <td>@product.Name</td>
                     <td>@product.Currency</td>
                     <td>@product.Amount</td>
+                    <td>
+                        <a class="btn" href="products/@product.Id" @onclick="() => NavigateToProduct(product.Id.ToString())">View Details</a>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -29,7 +91,7 @@
 
 @code {
     private HttpClient httpClient;
-    public List<ProductResponse> products;
+    private List<ProductResponse> products;
 
     protected override async Task OnInitializedAsync()
     {
@@ -39,6 +101,12 @@
     private async Task GetProducts()
     {
         products = await httpClient.GetFromJsonAsync<List<ProductResponse>>("https://localhost:44334/products");
+    }
+
+    void NavigateToProduct(string productId)
+    {
+        var url = $"products/{productId}";
+        Navigation.NavigateTo(url);
     }
 
 }
