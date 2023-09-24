@@ -7,6 +7,8 @@
     <RootNamespace>Web_API</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="Carter" Version="7.1.0" />
     <PackageReference Include="Mapster" Version="7.3.0" />

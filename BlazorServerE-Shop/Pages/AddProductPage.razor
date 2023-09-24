@@ -1,0 +1,53 @@
+﻿@page "/products/add"
+@using Application.Products.Get;
+@using Web_API.Endpoints.Products
+@using BlazorServerEShop.Shared
+
+@inject NavigationManager navigationmanager
+
+<h3>Add Product</h3>
+<EditForm Model="@Model" OnSubmit="@Submit">
+    <span>Name</span>
+    <InputText @bind-Value="Model!.Name" />
+
+    <span>Sku</span>
+    <InputText @bind-Value="Model!.Sku" />
+
+    <span>Currency</span>
+    <InputText @bind-Value="Model!.Currency" />
+
+    <span>Amount</span>
+    <InputNumber @bind-Value="Model!.Amount" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+    public AddProductFormData Model { get; set; }
+
+    protected override void OnInitialized() => Model ??= new AddProductFormData("Lagrad produkt", "NO_SKU", "SEK", 99);
+
+    private HttpClient httpClient;
+
+    protected override async Task OnInitializedAsync()
+    {
+        httpClient = new HttpClient();
+    }
+
+    private async void Submit()
+    {
+        var productRequest = new CreateProductRequest(Model.Name, Model.Sku, Model.Currency, Model.Amount);
+
+        using var response = await httpClient.PostAsJsonAsync<CreateProductRequest>("https://localhost:44334/products", productRequest);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var createdProduct = await response.Content.ReadFromJsonAsync<ProductResponse>();
+
+            navigationmanager.NavigateTo("products/" + createdProduct.Id);
+
+        }
+
+    }
+
+}
