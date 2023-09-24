@@ -3,6 +3,7 @@ using Application.Customers.Register;
 using Carter;
 using Domain.Errors;
 using Domain.Shared;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,11 +29,12 @@ public class CustomersModule : ICarterModule
         });
 
         app.MapPost("customers/login", async (
-            [FromBody] LoginCommand request,
+            [FromBody] LoginRequest request,
             ISender sender,
             CancellationToken cancellationToken) =>
         {
-            Result<string> tokenResult = await sender.Send(request, cancellationToken);
+            var command = request.Adapt<LoginCommand>();
+            Result<string> tokenResult = await sender.Send(command, cancellationToken);
 
             if (tokenResult.IsFailure)
             {
