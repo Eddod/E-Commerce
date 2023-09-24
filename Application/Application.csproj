@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Email\" />
+    <Folder Include="Dtos\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,4 +20,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Dtos\" />
+  </ItemGroup>
 </Project>

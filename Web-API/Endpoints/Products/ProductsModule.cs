@@ -26,6 +26,15 @@ public class ProductsModule : ICarterModule
             return query;
         });
 
+        app.MapPost("products", async (CreateProductRequest request, ISender sender) =>
+        {
+            var command = request.Adapt<CreateProductCommand>();
+
+            await sender.Send(command);
+
+            return Results.Ok();
+        });
+
         app.MapGet("products/{id:guid}", async (Guid Id, ISender sender) =>
         {
             try
@@ -38,15 +47,6 @@ public class ProductsModule : ICarterModule
             }
 
         });
-
-        app.MapPost("products", async (CreateProductRequest request, ISender sender) =>
-        {
-            var command = request.Adapt<CreateProductCommand>();
-
-            await sender.Send(command);
-
-            return Results.Ok();
-        }).RequireAuthorization();
 
 
         app.MapDelete("products/{id:guid}", async (Guid Id, ISender sender) =>

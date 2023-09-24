@@ -1,4 +1,5 @@
-﻿namespace Application.Products.Get;
+﻿
+namespace Application.Products.Get;
 
 public record ProductResponse(
     Guid Id,
