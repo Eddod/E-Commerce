@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Web_API.Hubs;
 
 namespace Web_API;
 
@@ -6,9 +7,9 @@ public class ServerTimeNotifier : BackgroundService
 {
    private static readonly TimeSpan _interval = TimeSpan.FromSeconds(5);
     private readonly ILogger<ServerTimeNotifier> _logger;
-    private readonly IHubContext<ChatHub, INotificationClient> _hubContext;
+    private readonly IHubContext<NotificationsHub, INotificationClient> _hubContext;
 
-    public ServerTimeNotifier(IHubContext<ChatHub, INotificationClient> hubContext, ILogger<ServerTimeNotifier> logger)
+    public ServerTimeNotifier(IHubContext<NotificationsHub, INotificationClient> hubContext, ILogger<ServerTimeNotifier> logger)
     {
         _hubContext = hubContext;
         _logger = logger;

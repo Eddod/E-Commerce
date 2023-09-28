@@ -29,6 +29,9 @@
 
         if (response.IsSuccessStatusCode)
         {
+            var token = await response.Content.ReadAsStringAsync();
+            Http.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
             navigationManager.NavigateTo("/products");
         }
         else

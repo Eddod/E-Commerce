@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace Web_API;
+namespace Web_API.Hubs;
 
-public class ChatHub : Hub<INotificationClient>
+public class NotificationsHub : Hub<INotificationClient>
 {
-   
+
     public override async Task OnConnectedAsync()
     {
         await Clients.Client(Context.ConnectionId).ReceiveNotification(
             $"Thank you for connecting {Context.User?.Identity?.Name}");
-        Console.WriteLine("Testarå");
         await base.OnConnectedAsync();
     }
 }

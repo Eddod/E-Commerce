@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistance;
 using Serilog;
 using Web_API;
+using Web_API.Hubs;
 using Web_API.OptionsSetup;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,7 +61,7 @@ app.UseAuthorization();
 
 app.MapCarter();
 
-app.MapHub<ChatHub>("notifications");
+app.MapHub<NotificationsHub>("notifications");
 
 
 app.Run();

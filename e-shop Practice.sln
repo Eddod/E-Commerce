@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistance", "Persistance\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web-API", "Web-API\Web-API.csproj", "{AAE325D5-E826-43A0-9947-DA4399340D62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServerE-Shop", "BlazorServerE-Shop\BlazorServerE-Shop.csproj", "{6DC2654A-5EDD-48E9-975C-77598BC6BA26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServerE-Shop", "BlazorServerE-Shop\BlazorServerE-Shop.csproj", "{6DC2654A-5EDD-48E9-975C-77598BC6BA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

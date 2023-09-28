@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Email\" />
-    <Folder Include="Dtos\" />
+    <Folder Include="Orders\Get\" />
   </ItemGroup>
 
   <ItemGroup>

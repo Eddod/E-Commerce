@@ -3,7 +3,7 @@ using Domain.Entities.Customers;
 using Domain.Entities.Orders;
 using MediatR;
 
-namespace Application.Orders;
+namespace Application.Orders.Create;
 
 internal sealed class CreateOrdersCommandHandler : IRequestHandler<CreateOrdersCommand>
 {
@@ -23,7 +23,7 @@ internal sealed class CreateOrdersCommandHandler : IRequestHandler<CreateOrdersC
         {
             return;
         }
-        var order = Order.Create(customer.Id);   
+        var order = Order.Create(customer.Id);
 
         _context.Orders.Add(order);
 
